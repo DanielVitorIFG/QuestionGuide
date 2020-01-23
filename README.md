@@ -13,4 +13,12 @@ Dentro da plataforma, você faz uma pergunta, acessa a pergunta e vê as respota
 ![](/public/img/question.png)
 ![](/public/img/answers.png)
 
+## Tecnologias utilizadas
+
+* NodeJS + Express
+* EJS
+* Bootstrap
+* MySql
+
+
 
