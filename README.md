@@ -18,6 +18,7 @@ Dentro da plataforma, você faz uma pergunta, acessa a pergunta e vê as respota
 * NodeJS + Express
 * EJS
 * Bootstrap
+* Sequelize
 * MySql
 
 
