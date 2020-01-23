@@ -46,7 +46,32 @@ app.get('/question/:id', (req,res) => {
     Question.findOne({
         where: {id: id}
     }).then(question => {
-        question != undefined ? res.render('question',{question:question}) : res.redirect('/');
+        if(question != undefined ) {
+            Answer.findAll({
+                where:{questionID: question.id},
+                order:[
+                    ['id','DESC']
+                ]
+            }).then((answers) => {
+                res.render('question',{
+                    question:question,
+                    answers:answers
+                });
+            });
+        }else{
+            res.redirect('/');  
+        }
+    });
+});
+
+app.post('/toanswer', (req,res) => {
+    let body = req.body.body;
+    let questionID = req.body.question;
+    Answer.create({
+        body:body,
+        questionID: questionID
+    }).then(() => {
+        res.redirect('/question/'+questionID);
     });
 });
 
