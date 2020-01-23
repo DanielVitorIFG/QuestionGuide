@@ -11,6 +11,6 @@ Plataforma simples de perguntas e responsas com base no ask.fm
 Dentro da plataforma, você faz uma pergunta, acessa a pergunta e vê as respotas.
 
 ![](/public/img/question.png)
-![](/public/img/answer.png)
+![](/public/img/answers.png)
 
 
