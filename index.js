@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const connection = require('./database/connection');
+const Question = require('./database/Question');
 
 // database
 connection
@@ -15,7 +16,11 @@ app.use(express.json());
 
 //  Rotas
 app.get('/', (req,res) => {
-    res.render('index'); 
+    Question.findAll({raw: true}).then((questions) => {
+        res.render('index', {
+            questions: questions
+        }); 
+    });
 });
 
 app.get('/ask', (req,res) => {
@@ -25,7 +30,12 @@ app.get('/ask', (req,res) => {
 app.post('/saveQuestion', (req,res) => {
     var title = req.body.title;
     var description = req.body.description;
-    res.send("Formulário recebido: " + "Título: "+ title + "Descrição: " + description);
+    Question.create({
+        title: title,
+        description: description
+    }).then(() => {
+        res.redirect('/'); // voltando para o início
+    })   
 });
 
 

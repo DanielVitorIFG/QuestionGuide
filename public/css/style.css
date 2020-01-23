@@ -1,6 +1,11 @@
 body {
     background-color: #d3dade;
 }
-.formularioPergunta {
+.form-question {
    margin-top: 5vh; 
+}
+.btn-costume {
+    width: 400px;
+    margin-top: 10px;
+    border-radius: 20px;
 }
