@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const connection = require('./database/connection');
 const Question = require('./database/Question');
+const Answer = require('./database/Answer');
 
 // database
 connection
@@ -16,7 +17,9 @@ app.use(express.json());
 
 //  Rotas
 app.get('/', (req,res) => {
-    Question.findAll({raw: true}).then((questions) => {
+    Question.findAll({raw: true, order: [
+        ['id','DESC'] // ASC -> Ordem crescente || DESC -> Ordem Decrescente
+    ]}).then((questions) => {
         res.render('index', {
             questions: questions
         }); 
@@ -28,8 +31,8 @@ app.get('/ask', (req,res) => {
 });
 
 app.post('/saveQuestion', (req,res) => {
-    var title = req.body.title;
-    var description = req.body.description;
+    let title = req.body.title;
+    let description = req.body.description;
     Question.create({
         title: title,
         description: description
@@ -37,6 +40,16 @@ app.post('/saveQuestion', (req,res) => {
         res.redirect('/'); // voltando para o início
     })   
 });
+
+app.get('/question/:id', (req,res) => {
+    let id  = req.params.id;
+    Question.findOne({
+        where: {id: id}
+    }).then(question => {
+        question != undefined ? res.render('question',{question:question}) : res.redirect('/');
+    });
+});
+
 
 
 app.listen(8080, () => console.log('Software rodando'));
